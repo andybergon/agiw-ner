@@ -15,11 +15,17 @@
 	</properties>
 
 	<dependencies>
-	
+
 		<dependency>
 			<groupId>com.likethecolor</groupId>
 			<artifactId>alchemy</artifactId>
 			<version>1.2.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+			<version>1.1</version>
 		</dependency>
 
 		<dependency>
@@ -28,5 +34,6 @@
 			<version>3.8.1</version>
 			<scope>test</scope>
 		</dependency>
+
 	</dependencies>
 </project>

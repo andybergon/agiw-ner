@@ -16,18 +16,18 @@ import com.likethecolor.alchemy.api.entity.Response;
 
 import agiw.ner.NamedEntity;
 
-public class AlchemyAPITest {
+public class AlchemyAPIExtractor {
 	private Client client;
 
-	public AlchemyAPITest() {
+	public AlchemyAPIExtractor() {
 		this.client = new Client();
+		this.initialize();
 	}
 
 	public static void main(String[] args) {
 		String url = "http://www.lastampa.it/2015/03/20/cronaca/anna-abbagnale-fuori-pericolo-tornano-i-trenta-torinesi-dalla-tunisia-NldddrrapGzIdLUz7N2ABL/pagina.html";
 
-		AlchemyAPITest aat = new AlchemyAPITest();
-		aat.initialize();
+		AlchemyAPIExtractor aat = new AlchemyAPIExtractor();
 		aat.printEntitiesFromUrl(url);
 		aat.getEntitiesFromUrl(url);
 
@@ -90,9 +90,9 @@ public class AlchemyAPITest {
 			while (iter.hasNext()) {
 				alchemyEntity = iter.next();
 
-				System.out.println("Text: " + alchemyEntity.getText());
-				System.out.println("Type: " + alchemyEntity.getType());
-				System.out.println("Score: " + alchemyEntity.getScore());
+				//				System.out.println("Text: " + alchemyEntity.getText());
+				//				System.out.println("Type: " + alchemyEntity.getType());
+				//				System.out.println("Score: " + alchemyEntity.getScore());
 
 				entityName = alchemyEntity.getText();
 				entityType = alchemyEntity.getType();

@@ -12,3 +12,6 @@ bin/
 # Maven
 log/
 target/
+
+# Project Specific
+config.properties
