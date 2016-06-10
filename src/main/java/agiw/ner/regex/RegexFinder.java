@@ -22,6 +22,9 @@ public class RegexFinder {
 	// "Gen|GUP|PM|SA|SE|SS"
 	public static final String JOB_REGEX = "[$ \\.](?i)(" + JOB_START + ")[ \\.]";
 
+	public static final String NAME_REGEX = "(?:^|(?<=\\s))(?=(\\S+\\s+\\S+)(?=\\s|$))";
+	
+	
 	public static void main(String[] args) {
 		String emailTest = "my email is andyb@libero.it, ajaj \n my other is adjaj@gmail.com. taas SdSDad@laskDa.org";
 		String phoneTest = "l +39 22.52.255.55 mio numero è:  (+39) 43390 2024, il numero di luca è 0693 8247289. Quello di simo: +3935422985. chiara è 0689939983.";
@@ -46,7 +49,7 @@ public class RegexFinder {
 
 		while (m.find()) {
 			allMatches.add(m.group().trim());
-			//			System.out.println(m.group());
+			//System.out.println(m.group());
 		}
 		
 		removeDuplicateFromList(allMatches);
@@ -60,15 +63,15 @@ public class RegexFinder {
 		list.addAll(setItems);
 	}
 	
-	public List<String> findRegexNameInText(String regex, String body) {
+	public List<String> findRegexNameInText(String body) {
 		List<String> allMatches = new ArrayList<String>();
 
-		Pattern r = Pattern.compile(regex);
+		Pattern r = Pattern.compile(NAME_REGEX);
 		Matcher m = r.matcher(body);
 
 		while (m.find()) {
 			allMatches.add(m.group().trim());
-			//			System.out.println(m.group());
+			//System.out.println(m.group());
 		}
 		
 		removeDuplicateFromList(allMatches);

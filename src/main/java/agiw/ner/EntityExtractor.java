@@ -16,6 +16,7 @@ import agiw.ner.alchemyapi.AlchemyAPIExtractor;
 import agiw.ner.json.IEJsonWriter;
 import agiw.ner.objects.NER;
 import agiw.ner.objects.NamedEntity;
+import agiw.ner.regex.NameFinder;
 import agiw.ner.regex.RegexFinder;
 import agiw.ner.regex.RegexPattern;
 import utils.JsoupCleaner;
@@ -44,6 +45,7 @@ public class EntityExtractor {
 				}
 
 				if (personDirectory.isDirectory()) {
+					List<String> emails, telephones, addresses, names, qualifications;
 					File[] personFiles = personDirectory.listFiles();
 					int i = 1;
 					Arrays.sort(personFiles);
@@ -52,6 +54,7 @@ public class EntityExtractor {
 
 						JSONParser parser = new JSONParser();
 						Object obj;
+						
 						try {
 							obj = parser.parse(new FileReader(personFile.getAbsolutePath()));
 							org.json.simple.JSONObject jsonObject = (JSONObject) obj;
@@ -77,17 +80,29 @@ public class EntityExtractor {
 							JsoupCleaner hc = new JsoupCleaner();
 							body = hc.cleanHtml(body);
 
-							if (i == 12)
-								System.out.println(body + "\n\n\n\n\n\n");
+//							if (i == 12)
+//								System.out.println(body + "\n\n\n\n\n\n");
 
 							RegexPattern pattern = new RegexPattern();
 							RegexFinder rf = new RegexFinder();
 
-							pattern.setAddr(rf.findRegexInString(RegexFinder.ADDRESS_REGEX, body));
-							pattern.setEmail(rf.findRegexInString(RegexFinder.EMAIL_REGEX, body));
-							pattern.setTel(rf.findRegexInString(RegexFinder.PHONE_REGEX, body));
-							pattern.setQualification(rf.findRegexInString(RegexFinder.JOB_REGEX, body));
-
+							addresses = rf.findRegexInString(RegexFinder.ADDRESS_REGEX, body);
+							pattern.setAddresses(addresses);
+							
+							emails = rf.findRegexInString(RegexFinder.EMAIL_REGEX, body);
+							pattern.setEmails(emails);
+							
+							telephones = rf.findRegexInString(RegexFinder.PHONE_REGEX, body);
+							pattern.setTelephones(telephones);
+							
+							qualifications = rf.findRegexInString(RegexFinder.JOB_REGEX, body);
+							pattern.setQualifications(qualifications);
+							
+							names = new NameFinder().findNamePairs(body);
+//							names = rf.findRegexNameInText(body);
+							pattern.setNames(names);
+							
+							
 							IEJsonWriter jw = new IEJsonWriter();
 							jw.writeJson(json.getAbsolutePath(), url, ner, pattern);
 

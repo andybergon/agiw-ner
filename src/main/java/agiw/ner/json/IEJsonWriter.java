@@ -30,10 +30,11 @@ public class IEJsonWriter {
 
 		JSONObject patternObj = new JSONObject();
 
-		patternObj.put("email", pattern.getEmail());
-		patternObj.put("tel", pattern.getTel());
-		patternObj.put("addr", pattern.getAddr());
-		patternObj.put("qualification", pattern.getQualification());
+		patternObj.put("email", pattern.getEmails());
+		patternObj.put("tel", pattern.getTelephones());
+		patternObj.put("addr", pattern.getAddresses());
+		patternObj.put("name", pattern.getNames()); // TODO: check
+		patternObj.put("qualification", pattern.getQualifications());
 
 		obj.put("PATTERN", patternObj);
 
@@ -41,7 +42,7 @@ public class IEJsonWriter {
 			FileWriter file = new FileWriter(path);
 			Gson gson = new GsonBuilder().setPrettyPrinting().create();
 			String prettyJson = gson.toJson(obj);
-			
+
 			file.write(prettyJson);
 			file.flush();
 			file.close();

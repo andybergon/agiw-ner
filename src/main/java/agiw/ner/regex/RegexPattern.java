@@ -4,53 +4,64 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RegexPattern {
-	private List<String> email;
-	private List<String> addr;
-	private List<String> qualification;
-	private List<String> tel;
-	
+	private List<String> emails;
+	private List<String> addresses;
+	private List<String> qualifications;
+	private List<String> telephones;
+	private List<String> names;
+
 	public RegexPattern() {
-		this.email = new ArrayList<String>();
-		this.tel = new ArrayList<String>();
-		this.addr = new ArrayList<String>();
-		this.qualification = new ArrayList<String>();
+		this.emails = new ArrayList<String>();
+		this.telephones = new ArrayList<String>();
+		this.addresses = new ArrayList<String>();
+		this.qualifications = new ArrayList<String>();
+		this.names = new ArrayList<String>();
 	}
 
-	public List<String> getEmail() {
-		return email;
+	public List<String> getEmails() {
+		return emails;
 	}
 
-	public void setEmail(List<String> email) {
-		this.email = email;
+	public void setEmails(List<String> emails) {
+		this.emails = emails;
 	}
 
-	public List<String> getTel() {
-		return tel;
+	public List<String> getAddresses() {
+		return addresses;
 	}
 
-	public void setTel(List<String> tel) {
-		this.tel = tel;
+	public void setAddresses(List<String> addresses) {
+		this.addresses = addresses;
 	}
 
-	public List<String> getAddr() {
-		return addr;
+	public List<String> getQualifications() {
+		return qualifications;
 	}
 
-	public void setAddr(List<String> addr) {
-		this.addr = addr;
+	public void setQualifications(List<String> qualifications) {
+		this.qualifications = qualifications;
 	}
 
-	public List<String> getQualification() {
-		return qualification;
+	public List<String> getTelephones() {
+		return telephones;
 	}
 
-	public void setQualification(List<String> qualification) {
-		this.qualification = qualification;
+	public void setTelephones(List<String> telephones) {
+		this.telephones = telephones;
+	}
+
+	public List<String> getNames() {
+		return names;
+	}
+
+	public void setNames(List<String> names) {
+		this.names = names;
 	}
 
 	@Override
 	public String toString() {
-		return "Pattern [email=" + email + ", tel=" + tel + ", addr=" + addr + ", qualification=" + qualification + "]";
+		return "RegexPattern [emails=" + emails + ", " + "addresses=" + addresses + ", " + "qualifications="
+				+ qualifications + ", telephones=" + telephones + ", names=" + names + "]";
 	}
-	
+
 }
