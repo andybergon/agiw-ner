@@ -1,4 +1,4 @@
-package agiw.ner;
+package agiw.ner.objects;
 
 public class NamedEntity {
 	private String name;

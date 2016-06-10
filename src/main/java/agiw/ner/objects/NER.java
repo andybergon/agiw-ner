@@ -1,4 +1,4 @@
-package agiw.ner;
+package agiw.ner.objects;
 
 import java.util.ArrayList;
 import java.util.List;

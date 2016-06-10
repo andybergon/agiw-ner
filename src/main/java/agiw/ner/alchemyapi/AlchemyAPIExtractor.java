@@ -14,7 +14,7 @@ import com.likethecolor.alchemy.api.call.type.CallTypeUrl;
 import com.likethecolor.alchemy.api.entity.NamedEntityAlchemyEntity;
 import com.likethecolor.alchemy.api.entity.Response;
 
-import agiw.ner.NamedEntity;
+import agiw.ner.objects.NamedEntity;
 
 public class AlchemyAPIExtractor {
 	private Client client;

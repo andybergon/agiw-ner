@@ -3,17 +3,17 @@ package agiw.ner.regex;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Pattern {
+public class RegexPattern {
 	private List<String> email;
-	private List<String> tel;
 	private List<String> addr;
-	private List<String> name;
+	private List<String> qualification;
+	private List<String> tel;
 	
-	public Pattern() {
+	public RegexPattern() {
 		this.email = new ArrayList<String>();
 		this.tel = new ArrayList<String>();
 		this.addr = new ArrayList<String>();
-		this.name = new ArrayList<String>();
+		this.qualification = new ArrayList<String>();
 	}
 
 	public List<String> getEmail() {
@@ -40,19 +40,17 @@ public class Pattern {
 		this.addr = addr;
 	}
 
-	public List<String> getName() {
-		return name;
+	public List<String> getQualification() {
+		return qualification;
 	}
 
-	public void setName(List<String> name) {
-		this.name = name;
+	public void setQualification(List<String> qualification) {
+		this.qualification = qualification;
 	}
 
 	@Override
 	public String toString() {
-		return "Pattern [email=" + email + ", tel=" + tel + ", addr=" + addr + ", name=" + name + "]";
+		return "Pattern [email=" + email + ", tel=" + tel + ", addr=" + addr + ", qualification=" + qualification + "]";
 	}
 	
-	
-
 }
