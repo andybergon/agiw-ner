@@ -52,6 +52,10 @@ public class PropertyFactor {
 		return this.properties.get("ner-path");
 	}
 	
+	public String getFriendsPath(){
+	    return this.properties.get("friends-path");
+	}
+	
 	public static String getJsonPathA() {
 		String path = null;
 		Properties prop = new Properties();
