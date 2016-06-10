@@ -19,10 +19,10 @@ import utils.PropertyFactor;
  * @author Simone
  *
  */
-public class readFriends {
+public class FacebookFriendsReader {
 
     public static void main(String[] args) {
-        Map<String, List<String>> friendsMap = friendsToMap();
+        Map<String, List<String>> friendsMap = facebookFriendsToMap();
         for (String s : friendsMap.keySet()){
             System.out.println(s);
             System.out.println(friendsMap.get(s).toString());
@@ -33,8 +33,8 @@ public class readFriends {
     }
 
 
-    public static Map<String, List<String>> friendsToMap() {
-        Map<String, List<String>> friendsMap = new HashMap<String, List<String>>();
+    public static Map<String, List<String>> facebookFriendsToMap() {
+        Map<String, List<String>> facebookFriendsMap = new HashMap<String, List<String>>();
 
         //leggo dalla cartella friends e metto nella mappa
         PropertyFactor pf = new PropertyFactor();
@@ -52,7 +52,7 @@ public class readFriends {
                 while ((thisLine = bufferReader.readLine()) != null) {
                     friendsList.add(thisLine.toLowerCase());
                 }  
-                friendsMap.put(name, friendsList);
+                facebookFriendsMap.put(name, friendsList);
                 bufferReader.close();
                 fileReader.close();
             }
@@ -64,6 +64,6 @@ public class readFriends {
                 e.printStackTrace();
             }
         }   
-        return friendsMap;
+        return facebookFriendsMap;
     }
 }

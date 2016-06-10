@@ -4,16 +4,12 @@
 package agiw.ner.facebook;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -24,7 +20,7 @@ import utils.PropertyFactor;
  * @author Simone
  *
  */
-public class readPersonsEntity {
+public class PersonsEntityReader {
 
     public static void main(String[] args) {
         Map<String, List<String>> perMap = perToMap();
