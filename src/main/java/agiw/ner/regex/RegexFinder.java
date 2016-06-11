@@ -10,32 +10,64 @@ import java.util.regex.Pattern;
 public class RegexFinder {
 	public static final String EMAIL_REGEX = "[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})";
 
-	public static final String PHONE_REGEX = "([(]?[\\+(]?(\\d){2,}[)]?[- /\\.]?(\\d){2,}[- /\\.]?(\\d){2,}[- /\\.]?(\\d){2,}[- /\\.]?(\\d){2,})|([\\+(]?(\\d){2,}[)]?[- /\\.]?(\\d){2,}[- /\\.]?(\\d){2,}[- /\\.]?(\\d){2,})|([\\+(]?(\\d){2,}[)]?[- /\\.]?(\\d){2,}[- /\\.]?(\\d){2,})";
+	public static final String PHONE_REGEX = "([(]?[\\+](\\d){2,5}[)]?[ //.]?)?" //prefix
+			+ "(((\\d){2,4}[ -/]?(\\d){5,10})|"
+			+ "((\\d){8,12})|"
+			+ "(((\\d){2}[/]){3,6}(\\d){2})|"
+			+ "(((\\d){2}[ ]){3,6}(\\d){2})|"
+			+ "(((\\d){2}[//.]){3,6}(\\d){2})|"
+			+ "(((\\d){3}[ //./]){2,4}(\\d){3})|"
+			+ "(((\\d){4}[ //./])((\\d){3}[ //./])((\\d){3}))|"
+			+ "(((\\d){3}[ //./])((\\d){2}[ //./])((\\d){2}[ //./])((\\d){3}))|"
+			+ "((\\d){3}[ //./]((\\d){2}[ //./]?){2,4}(\\d){2}))"
+			+ "(([/]|[//.][/]|[/][//.])(\\d){2,3})?"; //suffix
+
+	//	public static final String PHONE_REGEX_OLD = "([(]?[\\+(]?(\\d){2,}[)]?[ \\.]?(\\d){2,}[ \\.]?(\\d){2,}[ \\.]?(\\d){2,}[ \\.]?(\\d){2,})|"
+	//			+ "([(]?[\\+(]?(\\d){2,}[)]?[ \\.]?(\\d){2,}[ \\.]?(\\d){2,}[ \\.]?(\\d){2,})|"
+	//			+ "([(]?[\\+(]?(\\d){2,}[)]?[ \\.]?(\\d){2,}[ \\.]?(\\d){2,})";
+	//			+ "([(]?[(]?[\\+(]?(\\d){3,4}[)]?[ -/\\.]?(\\d){3,}[ -/\\.]?(\\d){2,}[ -/\\.]?(\\d){2,}[ -/\\.]?(\\d){2,})|"
+	//			+ "([(]?[\\+(]?(\\d){3,4}[)]?[ -/\\.]?(\\d){3,}[ -/\\.]?(\\d){2,}[ -/\\.]?(\\d){2,})|"
+	//			+ "([(]?[\\+(]?(\\d){3,4}[)]?[ -/\\.]?(\\d){3,}[ -/\\.]?(\\d){2,})";
 	//public static final String PHONE_REGEX2 = "(\\([0-9]{0,3}\\)|[0-9]{0,3}-)[0-9]{0,3}-[0-9]{0,4}";
+
 	public static final String ADDRESS_START = "Lungo|Largo|L\\.go|Lrg\\.|Lg\\.|Piazza|P\\.zza|Piazzale|Pz\\.le|Strada|Stretto|Via|V\\.|Vicolo|Viale|V\\.le|Vl\\.";
 	// P.
-	public static final String ADDRESS_REGEX = "[ ^](?i)(" + ADDRESS_START + ") ([A-Za-z]+[,\\.]? )+[0-9]+([/-]?[a-z0-9]*)*";
+	public static final String ADDRESS_REGEX = "[ ^](?i)(" + ADDRESS_START
+			+ ") ([A-Za-z]+[,\\.]? )+[0-9]{1,6}([/-][a-z]{0,4}[0-9]{0,6})*";
 	// ([A-Za-z]+[,.]? )+[0-9]+([/-]?[a-z0-9]{0,5})" controllare se $ o ^
-	
+
 	public static final String JOB_START = "Arch|Avv|Dott|Comm|Don|Dott|Dott\\.sa|Dott\\.ssa|Dottor|Dr|Geom|Ill\\.mo|Ing|Mo|Mons|On\\.|"
 			+ "P\\.Avv|Prof|Prof\\.sa|Prof\\.ssa|Rag|Rev|Sen|Ten|Uff";
 	// "Gen|GUP|PM|SA|SE|SS"
 	public static final String JOB_REGEX = "[$ \\.](?i)(" + JOB_START + ")[ \\.]";
 
 	public static final String NAME_REGEX = "(?:^|(?<=\\s))(?=(\\S+\\s+\\S+)(?=\\s|$))";
-	
-	
+
 	public static void main(String[] args) {
 		String emailTest = "my email is andyb@libero.it, ajaj \n my other is adjaj@gmail.com. taas SdSDad@laskDa.org";
 		String phoneTest = "l +39 22.52.255.55 mio numero è:  (+39) 43390 2024, il numero di luca è 0693 8247289. Quello di simo: +3935422985. chiara è 0689939983.";
-		String addressTest = "mia Via Eschiclo, 21. luca: viale amster casav 3/33/333, chiara è largo adjj ee 22/b e bla. ";
+		String addressTest = "mia Via Eschiclo, 21. luca: viale amster casav 33/34/35/c, chiara è largo adjj ee 22/b e bla. ";
 		String jobTest = "P. IVA 11352961004 p.avv. jaa Ing. Paolo Merialdo, ing. paolo merialdo, dott.sa";
 		String test = emailTest + phoneTest + addressTest + jobTest;
 
-		String testBody = "22/22/2222 22 22 22 22 NomeIndirizzoLocalità General Map Street Adele Nicoletti Home AVVOCATI COMMERCIALISTI NOTAI CONSULENTI Chi Siamo Contattaci Professionisti Napoli > Avvocati > Napoli > Adele Nicoletti Adele Nicoletti Avvocati Via A.mancini 15 80127 Napoli, NA TEL: Adele Nicoletti website: E' lei Adele Nicoletti? Ci contatti per modificare o aggiornare le informazioni di questa pagina cliccando qui Richieda Rimozione Profilo CONTATTACI professionistinapoli.it è il sito per trovare i professionisti. Questa è la pagina dedicata a Adele Nicoletti. Per trovare informazioni su Nicoletti Adele, Avvocato Professore Universita puoi visitare questa pagina oppure puoi trovare lo studio all'indirizzo Napoli all'indirizzo Via A.mancini 15. Coordinate Ufficio Adele Nicoletti Latitudine: 40.842499 Longitudine: 14.234955 Ufficio Via A.mancini 15 Napoli (NA) Benvenuto nella pagina di Nicoletti Adele, Avvocato Professore Universita , lo studio di Adele Nicoletti si trova a Napoli all'indirizzo Via A.mancini 15. Se stavi cercando il numero di telefono di Adele Nicoletti purtoppo noi di professionistinapoli.it non possiamo aiutarti. Il numero ancora ce lo devono comunicare. Se ci dovessero essere dei problemi puoi segnalarcelo con il form presente su professionistinapoli.it. TAGS Adele Nicoletti Napoli Altri in zona Avvocato Professore Universita Adele Nicoletti Via A.mancini 15 - Napoli Vai alla scheda Avvocato Nicola Amato Via P.s.mancini 13 - Napoli Vai alla scheda Avvocato Carlo Gisolfi Via P.s.mancini 13 - Napoli Vai alla scheda Avvocato Paola Pinto Via Mancini 19 - Napoli Vai alla scheda Avvocato Daniela Tognon Via Antonio Mancini 20/bis - Napoli Vai alla scheda Avvocato Nicola Terzi Via A.mancini 20 - Napoli Vai alla scheda Avvocato Adriana Mangogna Via A.mancini 20/bis - Napoli Vai alla scheda Avvocato Mariano Qualiano Via G.donizetti 1/e - Napoli Vai alla scheda Avvocato Alfredo Musto Via G.donizetti, 2 - Napoli Vai alla scheda Avvocato Rosa Magnotti Via Cimarosa, 9 - Napoli Vai alla scheda Avvocato Gaia Murolo Via Domenico Cimarosa, 23 - Napoli Vai alla scheda Avvocato Anna Maria Siniscalco Via Donizetti 5 - Napoli Vai alla scheda Avvocato Fiorella Saviotti Via Donizetti 5 - Napoli Vai alla scheda Avvocato Luca Ruffino Via F. P. Michetti 10 - Napoli Vai alla scheda Avvocato Vincenzo Benassai Via Renato Lordi 3 - Napoli Vai alla scheda Avvocato Giuliana Daniele Via R.lordi 6 - Napoli Vai alla scheda Avvocato Professore Universita Lucio De Giovanni Via Michetti 5 - Napoli Vai alla scheda Avvocato Anna Maria Galasso Via F.p. Michetti 6 - Napoli Vai alla scheda Avvocato Marina De Luca Via F.p.michetti - Napoli Vai alla scheda Avvocato Renato Russo Via F.p.michetti 10 - Napoli Vai alla scheda Servizi per i professionisti Contatti Nome Adele Nicoletti Citta' Napoli (NA)";
+		String testBody = "Tel: +39 071 82847 - Fax: +39 071 84398  aaa 2804951 24 aaa 79/80 80/81 81/82 82/83 aaa 22.22.2222 aaa 340/068206 aaa 348-1521271"+
+"aaa 0424-561108"+
+"aaa +39 02.95.03.92.21" +
+"aaa +39 0226 255 882"+
+"aaa +39 0226 255 860/.861"+
+"aaa +39 334 93 37 022"+
+"aaa 0924 906902"+
+"aaa 06 30891535"+
+"aaa 011 4110964"+
+"aaa +39.0444.545805"+
+"aaa 081.5359534/523"+
+"aaa 081.5359111"+
+"aaa (+39) 0584 795500"+
+"aaa 051/913456"+
+"aaa +39 3349337022";
 
 		RegexFinder rf = new RegexFinder();
-		List<String> allMatches = rf.findRegexInString(PHONE_REGEX, test);
+		List<String> allMatches = rf.findRegexInString(PHONE_REGEX, testBody);
 		//		List<String> allMatches = rf.findRegexInString("Dott.ssa","cjc Dottossa jdjajd");
 
 		System.out.println(allMatches.toString());
@@ -51,18 +83,18 @@ public class RegexFinder {
 			allMatches.add(m.group().trim());
 			//System.out.println(m.group());
 		}
-		
+
 		removeDuplicateFromList(allMatches);
 
 		return allMatches;
 	}
-	
+
 	private static void removeDuplicateFromList(List<String> list) {
 		Set<String> setItems = new LinkedHashSet<String>(list);
 		list.clear();
 		list.addAll(setItems);
 	}
-	
+
 	public List<String> findRegexNameInText(String body) {
 		List<String> allMatches = new ArrayList<String>();
 
@@ -73,10 +105,10 @@ public class RegexFinder {
 			allMatches.add(m.group().trim());
 			//System.out.println(m.group());
 		}
-		
+
 		removeDuplicateFromList(allMatches);
 
 		return allMatches;
 	}
-	
+
 }
