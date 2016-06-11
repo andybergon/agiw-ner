@@ -43,10 +43,10 @@ public class PersonsEntityReader {
                 List<String> personsList = new ArrayList<String>();
                 for(File f : dir.listFiles()){ 
                     if(!f.getName().equals(".DS_Store")){
-                        JSONParser parser = new JSONParser();
+                        org.json.simple.parser.JSONParser parser = new JSONParser();
                         Object obj;
                         try {
-                            obj = parser.parse(new FileReader(f));
+                            obj = parser.parse(new FileReader(f.getAbsolutePath()));
                             org.json.simple.JSONObject jsonObject = (JSONObject) obj;
                             org.json.simple.JSONObject nerObject = (JSONObject) jsonObject.get("NER");
                             org.json.simple.JSONArray array = (org.json.simple.JSONArray) nerObject.get("PER");

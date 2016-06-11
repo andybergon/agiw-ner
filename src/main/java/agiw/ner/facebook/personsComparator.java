@@ -12,11 +12,11 @@ public class personsComparator {
 		}
     	Map<String, Integer> facebookOnlyCounter = FacebookOnlyCounter();
     	for (String s : facebookOnlyCounter.keySet()) {
-    		System.out.println(s +" ha soltanto nel set di Facebook "+ facebookNerCounter.get(s) + " nomi.");
+    		System.out.println(s +" ha soltanto nel set di Facebook "+ facebookOnlyCounter.get(s) + " nomi.");
 		}
     	Map<String, Integer> nerOnlyCounter = NerOnlyCounter();
     	for (String s : nerOnlyCounter.keySet()) {
-    		System.out.println(s +" ha soltanto nel set di NER "+ facebookNerCounter.get(s) + " nomi.");
+    		System.out.println(s +" ha soltanto nel set di NER "+ nerOnlyCounter.get(s) + " nomi.");
     	}
     }
 
