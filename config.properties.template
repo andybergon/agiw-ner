@@ -1,3 +1,7 @@
 alchemy-api-key=
 json-path=/home/luca/Magistrale/AGIW/clas/
 ner-path=/home/luca/Magistrale/AGIW/clas-ner/
+
+bingKey=
+storagePath=/home/andybergon/workspace/storage-usa/
+peoplePath=/home/andybergon/workspace/structure/andreaAmericanPeople.txt

@@ -9,6 +9,9 @@
 # Java
 bin/
 
+# Mac
+.DS_Store
+
 # Maven
 log/
 target/

@@ -23,8 +23,8 @@ public class IEJsonWriter {
 		JSONObject nerObj = new JSONObject();
 
 		nerObj.put("PER", ner.getPer());
-		nerObj.put("ORG", ner.getLoc());
-		nerObj.put("LOC", ner.getOrg());
+		nerObj.put("ORG", ner.getOrg());
+		nerObj.put("LOC", ner.getLoc());
 
 		obj.put("NER", nerObj);
 

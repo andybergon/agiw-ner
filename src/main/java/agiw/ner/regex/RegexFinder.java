@@ -50,7 +50,7 @@ public class RegexFinder {
 		String jobTest = "P. IVA 11352961004 p.avv. jaa Ing. Paolo Merialdo, ing. paolo merialdo, dott.sa";
 		String test = emailTest + phoneTest + addressTest + jobTest;
 
-		String testBody = "Tel: +39 071 82847 - Fax: +39 071 84398  aaa 2804951 24 aaa 79/80 80/81 81/82 82/83 aaa 22.22.2222 aaa 340/068206 aaa 348-1521271"+
+		String testBody = "m.adjad@dkaka.it ada Tel: +39 071 82847 - Fax: +39 071 84398  aaa 2804951 24 aaa 79/80 80/81 81/82 82/83 aaa 22.22.2222 aaa 340/068206 aaa 348-1521271"+
 "aaa 0424-561108"+
 "aaa +39 02.95.03.92.21" +
 "aaa +39 0226 255 882"+

@@ -52,8 +52,24 @@ public class PropertyFactor {
 		return this.properties.get("ner-path");
 	}
 	
+	public String getBingKey(){
+		return this.properties.get("bingKey");
+	}
+	
+	public String getStoragePath(){
+		return this.properties.get("storagePath");
+	}
+	
+	public String getPeoplePath(){
+		return this.properties.get("peoplePath");
+	}
+	
+	public String getJsonPagesPath(){
+	    return this.properties.get("json-pages-path");
+	}
+	
 	public String getFriendsPath(){
-	    return this.properties.get("friends-path");
+		return this.properties.get("friends-path");
 	}
 	
 	public static String getJsonPathA() {
