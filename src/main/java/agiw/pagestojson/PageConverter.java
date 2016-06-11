@@ -18,20 +18,25 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import utils.PropertyFactor;
 
-public class PagesConverter {
+public class PageConverter {
 
 	public static void main(String[] args) throws IOException {
-		System.out.println("Start converting pages to JSON...");
-		convertPagesToJson();
+		PageConverter pc = new PageConverter();
+		System.out.println("Converting pages to JSON...");
+		pc.convertPagesToJson();
+		System.out.println("Pages converted to JSON.");
 	}
 
-	public static void convertPagesToJson() {
+	public void convertPagesToJson() {
 		PropertyFactor pf = new PropertyFactor();
-		File dir = new File(pf.getStoragePath());
+		String storagePath = pf.getStoragePath();
+		String jsonPath = pf.getJsonPath();
+		
+		File dir = new File(storagePath);
 		File[] directoryListing = dir.listFiles();
 		Arrays.sort(directoryListing);
 
-		File groupFolder = new File(pf.getJsonPagesPath());
+		File groupFolder = new File(jsonPath);
 		String groupPath = groupFolder.getAbsolutePath();
 
 		if (directoryListing != null) {
@@ -55,7 +60,7 @@ public class PagesConverter {
 				File personDirectory = new File(groupPath, firstName + "_" + lastName);
 
 				if (!personDirectory.exists()) {
-					personDirectory.mkdir();
+					personDirectory.mkdirs();
 				}
 
 				jsonFileName = changeFileExtension(jsonFileName, "json");
@@ -90,10 +95,6 @@ public class PagesConverter {
 			}
 		} else {
 			System.out.println("Storage Path not setted properly, it should be a directory!");
-			// Handle the case where dir is not really a directory.
-			// Checking dir.isDirectory() above would not be sufficient
-			// to avoid race conditions with another process that deletes
-			// directories.
 		}
 	}
 

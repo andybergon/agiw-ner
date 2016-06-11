@@ -20,7 +20,7 @@ public class HTMLCleaner {
 		String title = doc.select("title").text();
 		return title;
 	}
-	
+
 	public static String getBody(String filePath) throws IOException {
 		File input = new File(filePath);
 		// Jsoup.connect(url).get(); quando si usa?
@@ -34,7 +34,7 @@ public class HTMLCleaner {
 		Document doc = Jsoup.parse(input, "UTF-8", "");
 		String title = doc.select("title").text();
 		String body = doc.select("body").text();
-		String[] data = {title, body};
+		String[] data = { title, body };
 		return data;
 	}
 

@@ -9,29 +9,33 @@ import utils.PropertyFactor;
 public class EmptyPageCleaner {
 
 	public static void main(String[] args) throws IOException {
-		PropertyFactor pf = new PropertyFactor();
+		EmptyPageCleaner epc = new EmptyPageCleaner();
 		System.out.println("Cleaning pages...");
-		deleteEmptyFile(pf.getStoragePath());
+		epc.deleteEmptyFiles();
+		System.out.println("Pages cleaned.");
+	}
+	
+	private String storagePath;
+	
+	public EmptyPageCleaner() {
+		PropertyFactor pf = new PropertyFactor();
+		this.storagePath = pf.getStoragePath();
 	}
 
-	public static void deleteEmptyFile(String storagePath) throws UnsupportedEncodingException {
-		File dir = new File(storagePath);
+	public void deleteEmptyFiles() throws UnsupportedEncodingException {
+		File dir = new File(this.storagePath);
 		File[] directoryListing = dir.listFiles();
 		if (directoryListing != null) {
 			for (File child : directoryListing) {
 				// Do something with child
 				String fileName = child.getName();
 				if (child.length() == 0) {
-					System.out.println("vuoto: " + fileName);
+					System.out.println("empty: " + fileName);
 					child.delete();
 				}
 			}
 		} else {
-			System.out.println("Storage Path not setted properly, it should be a directory!");
-			// Handle the case where dir is not really a directory.
-			// Checking dir.isDirectory() above would not be sufficient
-			// to avoid race conditions with another process that deletes
-			// directories.
+			System.err.println("Storage Path not setted properly, it should be a directory!");
 		}
 	}
 

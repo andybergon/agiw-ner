@@ -64,9 +64,9 @@ public class PropertyFactor {
 		return this.properties.get("peoplePath");
 	}
 	
-	public String getJsonPagesPath(){
-	    return this.properties.get("json-pages-path");
-	}
+//	public String getJsonPagesPath(){
+//	    return this.properties.get("json-pages-path");
+//	}
 	
 	public String getFriendsPath(){
 		return this.properties.get("friends-path");

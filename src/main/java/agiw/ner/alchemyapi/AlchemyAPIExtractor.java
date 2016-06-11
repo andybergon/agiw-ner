@@ -93,10 +93,11 @@ public class AlchemyAPIExtractor {
 				//				System.out.println("Text: " + alchemyEntity.getText());
 				//				System.out.println("Type: " + alchemyEntity.getType());
 				//				System.out.println("Score: " + alchemyEntity.getScore());
+				//				DisambiguatedAlchemyEntity disambiguatedEntity = alchemyEntity.getDisambiguatedAlchemyEntity(); //TODO: check
+				//				disambiguatedEntity.getSubtypeSize(); // serve al for per iterare
 
 				entityName = alchemyEntity.getText();
-				entityType = alchemyEntity.getType();
-				// alchemyEntity.getDisambiguatedAlchemyEntity() //TODO: check
+				entityType = alchemyEntity.getType(); // main entity type
 				namedEntity = new NamedEntity(entityName, entityType);
 				entities.add(namedEntity);
 			}

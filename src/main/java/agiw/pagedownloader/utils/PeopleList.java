@@ -1,29 +1,31 @@
 package agiw.pagedownloader.utils;
-import java.io.BufferedReader;
-import java.io.FileReader;
+
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
-/**
- * 
- */
+import org.apache.commons.io.FileUtils;
 
-/**
- * @author chiara
- *
- */
 public class PeopleList {
-	final static int PEOPLE_NUMBER = 600;
-	
-	public static List<String> peopleList(String pathFile) throws IOException{
-		List<String> nameList = new ArrayList<String>();
-		FileReader fileReader = new FileReader(pathFile);
-		BufferedReader bufferReader = new BufferedReader(fileReader);
-		for( int i=0; i<PEOPLE_NUMBER; i++){
-			String line = bufferReader.readLine();
-			nameList.add(line);			
-		}
+
+	public static List<String> peopleList(String pathFile) throws IOException {
+		List<String> nameList = FileUtils.readLines(new File(pathFile), "utf-8");
+
 		return nameList;
+	}
+
+	public static List<String> peopleListWOcommons(String pathFile) throws IOException {
+		Scanner s = new Scanner(new File(pathFile));
+		ArrayList<String> list = new ArrayList<String>();
+
+		while (s.hasNextLine()) {
+			list.add(s.nextLine());
+		}
+
+		s.close();
+
+		return list;
 	}
 }

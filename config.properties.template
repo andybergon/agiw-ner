@@ -1,7 +1,13 @@
+# AlchemyAPI Key
 alchemy-api-key=
-json-path=/home/luca/Magistrale/AGIW/clas/
-ner-path=/home/luca/Magistrale/AGIW/clas-ner/
+# Folder that contains the folders of the people, each one containing some jsons of the downloaded pages
+json-path=/path/to/json/folder/
+# Folder that contains the folders of the people, each one containing some jsons of NER applied on the downloaded pages
+ner-path=/path/to/ner/folder/
 
+# Bing Key
 bingKey=
-storagePath=/home/andybergon/workspace/storage-usa/
-peoplePath=/home/andybergon/workspace/structure/andreaAmericanPeople.txt
+# File containing a file with the names
+peoplePath=/path/to/people/people.txt
+# Folder containing the downloaded pages
+storagePath=/path/to/storage/
