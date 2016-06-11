@@ -15,6 +15,7 @@ import com.likethecolor.alchemy.api.entity.NamedEntityAlchemyEntity;
 import com.likethecolor.alchemy.api.entity.Response;
 
 import agiw.ner.objects.NamedEntity;
+import utils.PropertyFactor;
 
 public class AlchemyAPIExtractor {
 	private Client client;
@@ -34,7 +35,8 @@ public class AlchemyAPIExtractor {
 	}
 
 	public void initialize() {
-		String apiKey = "d2f20d1fb2b74be0a0ab12a75dfe9b731981eaeb";
+		PropertyFactor pf = new PropertyFactor();
+		String apiKey = pf.getAlchemyApiKey();
 		client.setAPIKey(apiKey);
 	}
 
