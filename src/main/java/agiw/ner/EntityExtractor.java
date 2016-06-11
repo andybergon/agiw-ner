@@ -71,11 +71,11 @@ public class EntityExtractor {
 							System.out.println();
 
 							AlchemyAPIExtractor aae = new AlchemyAPIExtractor();
-							//						List<NamedEntity> entities = aae.getEntitiesFromUrl(url);
-							List<NamedEntity> entities = new ArrayList<NamedEntity>();
+													List<NamedEntity> entities = aae.getEntitiesFromUrl(url);
+							//List<NamedEntity> entities = new ArrayList<NamedEntity>();
 							NER ner = new NER(entities);
 
-							//ner.print();
+							ner.print();
 
 							JsoupCleaner hc = new JsoupCleaner();
 							body = hc.cleanHtml(body);
