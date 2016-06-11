@@ -21,7 +21,7 @@ import utils.PropertyFactor;
 public class PagesConverter {
 
 	public static void main(String[] args) throws IOException {
-		System.out.println("Start collecting pages");
+		System.out.println("Start converting pages to JSON...");
 		convertPagesToJson();
 	}
 

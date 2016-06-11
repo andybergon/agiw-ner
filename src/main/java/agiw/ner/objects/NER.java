@@ -8,16 +8,36 @@ public class NER {
 	private List<String> org;
 	private List<String> loc;
 
+	private static final List<String> organizations = new ArrayList<String>() {
+		private static final long serialVersionUID = 1L;
+		{
+			add("Company");
+			add("Organization");
+			add("PrintMedia");
+			//Product
+			add("RadioProgram");
+			add("RadioStation");
+			add("TelevisionStation");
+
+			add("Brand");
+		}
+	};
+
 	private static final List<String> locations = new ArrayList<String>() {
 		private static final long serialVersionUID = 1L;
 		{
+			add("City");
+			add("Continent");
 			add("Country");
+			add("GeographicFeature");
+			add("Region");
+			add("StateOrCounty");
+
 			add("CityTown");
 			add("Island");
 			add("IslandGroup");
 			add("Kingdom");
 			add("Location");
-			add("Region");
 			add("USCounty");
 			add("USState");
 		}
@@ -25,13 +45,13 @@ public class NER {
 
 	public NER(List<NamedEntity> entities) {
 		this();
-		
+
 		for (NamedEntity ne : entities) {
 			String type = ne.getType();
 
 			if (type.equals("Person")) {
 				this.per.add(ne.getName());
-			} else if (type.equals("Company")) {
+			} else if (organizations.contains(type)) {
 				this.org.add(ne.getName());
 			} else if (locations.contains(type)) {
 				this.loc.add(ne.getName());
@@ -46,7 +66,7 @@ public class NER {
 		this.org = org;
 		this.loc = loc;
 	}
-	
+
 	public NER() {
 		this.per = new ArrayList<String>();
 		this.org = new ArrayList<String>();
@@ -101,7 +121,7 @@ public class NER {
 		System.out.println("### LOC ###");
 		printList(this.loc);
 	}
-	
+
 	private void printList(List<String> list) {
 		for (String el : list) {
 			System.out.println(el);

@@ -96,6 +96,7 @@ public class AlchemyAPIExtractor {
 
 				entityName = alchemyEntity.getText();
 				entityType = alchemyEntity.getType();
+				// alchemyEntity.getDisambiguatedAlchemyEntity() //TODO: check
 				namedEntity = new NamedEntity(entityName, entityType);
 				entities.add(namedEntity);
 			}
