@@ -1,22 +1,23 @@
-/**
- * 
- */
 package agiw.ner.facebook;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-/**
- * @author Simone
- *
- */
 public class personsComparator {
 
     public static void main(String[] args) {
-        System.out.println(FacebookNerCounter());
-        System.out.println(FacebookOnlyCounter());
-        System.out.println(NerOnlyCounter());
+    	Map<String, Integer> facebookNerCounter = FacebookNerCounter();
+    	for (String s : facebookNerCounter.keySet()) {
+    		System.out.println(s +" ha in entrambi gli insiemi "+ facebookNerCounter.get(s) + " nomi.");
+		}
+    	Map<String, Integer> facebookOnlyCounter = FacebookOnlyCounter();
+    	for (String s : facebookOnlyCounter.keySet()) {
+    		System.out.println(s +" ha soltanto nel set di Facebook "+ facebookNerCounter.get(s) + " nomi.");
+		}
+    	Map<String, Integer> nerOnlyCounter = NerOnlyCounter();
+    	for (String s : nerOnlyCounter.keySet()) {
+    		System.out.println(s +" ha soltanto nel set di NER "+ facebookNerCounter.get(s) + " nomi.");
+    	}
     }
 
     /* conta quanti nomi in entrambi gli insiemi 
