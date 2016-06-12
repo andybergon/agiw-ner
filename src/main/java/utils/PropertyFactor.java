@@ -77,10 +77,6 @@ public class PropertyFactor {
 	public String getPeoplePath() {
 		return this.properties.get("peoplePath");
 	}
-	
-	public String getStructurePath() {
-		return this.properties.get("structurePath");
-	}
 
 	public String getFriendsPath() {
 		return this.properties.get("friends-path");
