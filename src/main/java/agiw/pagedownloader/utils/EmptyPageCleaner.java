@@ -33,6 +33,12 @@ public class EmptyPageCleaner {
 					System.out.println("empty: " + fileName);
 					child.delete();
 				}
+				if (child.getName().contains(".pdf")||
+						child.getName().contains(".ppt")||
+						child.getName().contains(".pptx")) {
+					System.out.println("formato pdf, ppt, pptx: " + fileName);
+					child.delete();
+				}
 			}
 		} else {
 			System.err.println("Storage Path not setted properly, it should be a directory!");
