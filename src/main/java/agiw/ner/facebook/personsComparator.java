@@ -6,18 +6,14 @@ import java.util.Map;
 public class personsComparator {
 
     public static void main(String[] args) {
-    	Map<String, Integer> facebookNerCounter = FacebookNerCounter();
-    	for (String s : facebookNerCounter.keySet()) {
-    		System.out.println(s +" ha in entrambi gli insiemi "+ facebookNerCounter.get(s) + " nomi.");
-		}
-    	Map<String, Integer> facebookOnlyCounter = FacebookOnlyCounter();
-    	for (String s : facebookOnlyCounter.keySet()) {
-    		System.out.println(s +" ha soltanto nel set di Facebook "+ facebookOnlyCounter.get(s) + " nomi.");
-		}
-    	Map<String, Integer> nerOnlyCounter = NerOnlyCounter();
-    	for (String s : nerOnlyCounter.keySet()) {
-    		System.out.println(s +" ha soltanto nel set di NER "+ nerOnlyCounter.get(s) + " nomi.");
-    	}
+        Map<String, Integer> facebookNerCounter = FacebookNerCounter();
+        Map<String, Integer> facebookOnlyCounter = FacebookOnlyCounter();
+        Map<String, Integer> nerOnlyCounter = NerOnlyCounter();
+        for (String s : facebookNerCounter.keySet()) {
+            System.out.println(s +" ha in entrambi gli insiemi "+ facebookNerCounter.get(s) + " nomi.");
+            System.out.println(s +" ha soltanto nel set di Facebook "+ facebookOnlyCounter.get(s) + " nomi.");
+            System.out.println(s +" ha soltanto nel set di NER "+ nerOnlyCounter.get(s) + " nomi.");
+        }
     }
 
     /* conta quanti nomi in entrambi gli insiemi 
@@ -33,11 +29,15 @@ public class personsComparator {
                     if(facebookMap.get(person).contains(personEntity)){
                         count++;
                     }
-                String personInverted = person.split(personEntity)[1]+person.split(personEntity)[0];
-                if(facebookMap.get(person)!=null)
-                    if(facebookMap.get(person).contains(personInverted)){
-                        count++;
-                    }
+                //System.out.println(personEntity);
+                if(personEntity.split(" ").length > 1){
+                    String personInverted = personEntity.split(" ", 2)[1]+" "+personEntity.split(" ", 2)[0];
+                    if(facebookMap.get(person)!=null)
+                        if(facebookMap.get(person).contains(personInverted)){
+                            System.out.println(personInverted);
+                            count++;
+                        }
+                }
             }
             result.put(person, count);
         }
@@ -51,20 +51,22 @@ public class personsComparator {
         Map<String, Integer> facebookNer = FacebookNerCounter();
         for(String person : facebookNer.keySet()){
             int commonNamesNumber = facebookNer.get(person); //in comune
-            result.put(person, facebookMap.get(person).size()-commonNamesNumber); //quelli totali su Fb - quelli in comune
+            if(facebookMap.get(person) != null){
+                result.put(person, Math.abs(facebookMap.get(person).size()-commonNamesNumber)); //quelli totali su Fb - quelli in comune
+            }
         }
         return result;
     }
 
     /* quanti nomi in entrambi solo su Ner */
     public static Map<String, Integer> NerOnlyCounter(){ 
-            Map<String, Integer> result = new HashMap<String, Integer>();
-            Map<String, List<String>> nerMap = PersonsEntityReader.perToMap();
-            Map<String, Integer> facebookNer = FacebookNerCounter();
-            for(String person : facebookNer.keySet()){
-                int commonNamesNumber = facebookNer.get(person); //in comune
-                result.put(person, nerMap.get(person).size()-commonNamesNumber); //quelli totali su Fb - quelli in comune
-            }
-            return result;
+        Map<String, Integer> result = new HashMap<String, Integer>();
+        Map<String, List<String>> nerMap = PersonsEntityReader.perToMap();
+        Map<String, Integer> facebookNer = FacebookNerCounter();
+        for(String person : facebookNer.keySet()){
+            int commonNamesNumber = facebookNer.get(person); //in comune
+            result.put(person, Math.abs(nerMap.get(person).size()-commonNamesNumber)); //quelli totali su Fb - quelli in comune
         }
+        return result;
+    }
 }
