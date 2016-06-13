@@ -49,7 +49,7 @@ public class RegexFinder {
 	public static void main(String[] args) {
 		String emailTest = "my email is andyb@libero.it, ajaj \n my other is adjaj@gmail.com. taas SdSDad@laskDa.org";
 		String phoneTest = "l +39 22.52.255.55 mio numero è:  (+39) 43390 2024, il numero di luca è 0693 8247289. Quello di simo: +3935422985. chiara è 0689939983.";
-		String addressTest = " via sant'agostino 1.via sant' agostino 1, mia Via Eschiclo, 21. luca: viale amster casav 33/34/35/c, chiara è largo adjj ee 22/b e bla. ";
+		String addressTest = "<b>Cinema San Pietro -&nbsp;</b>Via Matteotti, 47 -&nbsp;36075 Montecchio Maggiore (VI) -&nbsp;Telefono 3347565280\n via sant'agostino 1.via sant' agostino 1, mia Via Eschiclo, 21. luca: viale amster casav 33/34/35/c, chiara è largo adjj ee 22/b e bla. ";
 		String jobTest = "P. IVA 11352961004 p.avv. jaa Ing. Paolo Merialdo, ing. paolo merialdo, dott.sa";
 		String test = emailTest + phoneTest + addressTest + jobTest;
 
