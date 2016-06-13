@@ -54,7 +54,7 @@ public class EntityExtractor {
 
 						JSONParser parser = new JSONParser();
 						Object obj;
-						
+
 						try {
 							obj = parser.parse(new FileReader(personFile.getAbsolutePath()));
 							org.json.simple.JSONObject jsonObject = (JSONObject) obj;
@@ -68,11 +68,10 @@ public class EntityExtractor {
 							json.createNewFile();
 
 							System.out.println("new file:" + json.getAbsolutePath());
-							System.out.println();
 
 							AlchemyAPIExtractor aae = new AlchemyAPIExtractor();
-													List<NamedEntity> entities = aae.getEntitiesFromUrl(url);
-							//List<NamedEntity> entities = new ArrayList<NamedEntity>();
+							//	List<NamedEntity> entities = aae.getEntitiesFromUrl(url);
+							List<NamedEntity> entities = new ArrayList<NamedEntity>();
 							NER ner = new NER(entities);
 
 							ner.print();
@@ -80,32 +79,29 @@ public class EntityExtractor {
 							JsoupCleaner hc = new JsoupCleaner();
 							body = hc.cleanHtml(body);
 
-//							if (i == 12)
-//								System.out.println(body + "\n\n\n\n\n\n");
-
 							RegexPattern pattern = new RegexPattern();
 							RegexFinder rf = new RegexFinder();
 
 							addresses = rf.findRegexInString(RegexFinder.ADDRESS_REGEX, body);
 							pattern.setAddresses(addresses);
-							
+
 							emails = rf.findRegexInString(RegexFinder.EMAIL_REGEX, body);
 							pattern.setEmails(emails);
-							
+
 							telephones = rf.findRegexInString(RegexFinder.PHONE_REGEX, body);
 							pattern.setTelephones(telephones);
-							
+
 							qualifications = rf.findRegexInString(RegexFinder.JOB_REGEX, body);
 							pattern.setQualifications(qualifications);
-							
+
 							names = new NameFinder().findNamePairs(body);
-//							names = rf.findRegexNameInText(body);
+							//							names = rf.findRegexNameInText(body);
 							pattern.setNames(names);
-							
-							
+
 							IEJsonWriter jw = new IEJsonWriter();
 							jw.writeJson(json.getAbsolutePath(), url, ner, pattern);
 
+							System.out.println();
 							i++;
 
 						} catch (FileNotFoundException e1) {
