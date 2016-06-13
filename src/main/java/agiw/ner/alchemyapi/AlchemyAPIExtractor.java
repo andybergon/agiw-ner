@@ -10,6 +10,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
 import com.likethecolor.alchemy.api.Client;
 import com.likethecolor.alchemy.api.call.AbstractCall;
 import com.likethecolor.alchemy.api.call.RankedNamedEntitiesCall;
+import com.likethecolor.alchemy.api.call.type.CallTypeText;
 import com.likethecolor.alchemy.api.call.type.CallTypeUrl;
 import com.likethecolor.alchemy.api.entity.NamedEntityAlchemyEntity;
 import com.likethecolor.alchemy.api.entity.Response;
@@ -25,7 +26,7 @@ public class AlchemyAPIExtractor {
 		this.initialize();
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		String url = "http://www.lastampa.it/2015/03/20/cronaca/anna-abbagnale-fuori-pericolo-tornano-i-trenta-torinesi-dalla-tunisia-NldddrrapGzIdLUz7N2ABL/pagina.html";
 
 		AlchemyAPIExtractor aat = new AlchemyAPIExtractor();
@@ -74,7 +75,7 @@ public class AlchemyAPIExtractor {
 		}
 	}
 
-	public List<NamedEntity> getEntitiesFromUrl(String url) {
+	public List<NamedEntity> getEntitiesFromUrl(String url) throws AlchemyException {
 		final AbstractCall<NamedEntityAlchemyEntity> entityCall = new RankedNamedEntitiesCall(new CallTypeUrl(url));
 		List<NamedEntity> entities = new ArrayList<NamedEntity>();
 
@@ -105,7 +106,38 @@ public class AlchemyAPIExtractor {
 			}
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new AlchemyException();
+		}
+
+		return entities;
+	}
+
+	public List<NamedEntity> getEntitiesFromText(String body) {
+		final AbstractCall<NamedEntityAlchemyEntity> entityCall = new RankedNamedEntitiesCall(new CallTypeText(body));
+		List<NamedEntity> entities = new ArrayList<NamedEntity>();
+
+		try {
+			Response<NamedEntityAlchemyEntity> response;
+			NamedEntityAlchemyEntity alchemyEntity;
+			NamedEntity namedEntity;
+			String entityName;
+			String entityType;
+
+			response = this.client.call(entityCall);
+
+			final Iterator<NamedEntityAlchemyEntity> iter = response.iterator();
+
+			while (iter.hasNext()) {
+				alchemyEntity = iter.next();
+				
+				entityName = alchemyEntity.getText();
+				entityType = alchemyEntity.getType(); // main entity type
+				namedEntity = new NamedEntity(entityName, entityType);
+				entities.add(namedEntity);
+			}
+
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 

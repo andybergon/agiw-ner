@@ -13,6 +13,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import agiw.ner.alchemyapi.AlchemyAPIExtractor;
+import agiw.ner.alchemyapi.AlchemyException;
 import agiw.ner.json.IEJsonWriter;
 import agiw.ner.objects.NER;
 import agiw.ner.objects.NamedEntity;
@@ -71,7 +72,12 @@ public class EntityExtractor {
 
 							AlchemyAPIExtractor aae = new AlchemyAPIExtractor();
 							List<NamedEntity> entities = new ArrayList<NamedEntity>();
-							entities = aae.getEntitiesFromUrl(url);
+							try {
+								entities = aae.getEntitiesFromUrl(url);
+							} catch (AlchemyException e) {
+								entities = aae.getEntitiesFromText(body);
+								e.printStackTrace();
+							}
 							NER ner = new NER(entities);
 
 							// ner.print();
