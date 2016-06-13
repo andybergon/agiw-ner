@@ -70,11 +70,11 @@ public class EntityExtractor {
 							System.out.println("new file:" + json.getAbsolutePath());
 
 							AlchemyAPIExtractor aae = new AlchemyAPIExtractor();
-							//	List<NamedEntity> entities = aae.getEntitiesFromUrl(url);
 							List<NamedEntity> entities = new ArrayList<NamedEntity>();
+							// entities = aae.getEntitiesFromUrl(url);
 							NER ner = new NER(entities);
 
-							ner.print();
+							// ner.print();
 
 							JsoupCleaner hc = new JsoupCleaner();
 							body = hc.cleanHtml(body);
@@ -94,8 +94,8 @@ public class EntityExtractor {
 							qualifications = rf.findRegexInString(RegexFinder.JOB_REGEX, body);
 							pattern.setQualifications(qualifications);
 
-							names = new NameFinder().findNamePairs(body);
-							//							names = rf.findRegexNameInText(body);
+							names = new NameFinder().findNamesSurnamesCapital(body);
+							// names = rf.findRegexNameInText(body);
 							pattern.setNames(names);
 
 							IEJsonWriter jw = new IEJsonWriter();
