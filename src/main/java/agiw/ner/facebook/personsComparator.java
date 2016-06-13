@@ -22,11 +22,12 @@ public class personsComparator {
         Map<String, Integer> result = new HashMap<String, Integer>();
         Map<String, List<String>> facebookMap = FacebookFriendsReader.facebookFriendsToMap();
         Map<String, List<String>> nerMap = PersonsEntityReader.perToMap();
-        int count = 0;
         for(String person : nerMap.keySet()){
+            int count = 0;
             for(String personEntity : nerMap.get(person)){
                 if(facebookMap.get(person)!=null)
                     if(facebookMap.get(person).contains(personEntity)){
+                        //System.out.println(personEntity);
                         count++;
                     }
                 //System.out.println(personEntity);
@@ -34,7 +35,7 @@ public class personsComparator {
                     String personInverted = personEntity.split(" ", 2)[1]+" "+personEntity.split(" ", 2)[0];
                     if(facebookMap.get(person)!=null)
                         if(facebookMap.get(person).contains(personInverted)){
-                            System.out.println(personInverted);
+                            //System.out.println(personInverted);
                             count++;
                         }
                 }
@@ -49,11 +50,12 @@ public class personsComparator {
         Map<String, Integer> result = new HashMap<String, Integer>();
         Map<String, List<String>> facebookMap = FacebookFriendsReader.facebookFriendsToMap();
         Map<String, Integer> facebookNer = FacebookNerCounter();
+
         for(String person : facebookNer.keySet()){
+            System.out.println("Facebook map size"+facebookMap.get(person).size()+"  "+person.toString());
             int commonNamesNumber = facebookNer.get(person); //in comune
-            if(facebookMap.get(person) != null){
-                result.put(person, Math.abs(facebookMap.get(person).size()-commonNamesNumber)); //quelli totali su Fb - quelli in comune
-            }
+                result.put(person, facebookMap.get(person).size()-commonNamesNumber); //quelli totali su Fb - quelli in comune
+           
         }
         return result;
     }
@@ -63,9 +65,11 @@ public class personsComparator {
         Map<String, Integer> result = new HashMap<String, Integer>();
         Map<String, List<String>> nerMap = PersonsEntityReader.perToMap();
         Map<String, Integer> facebookNer = FacebookNerCounter();
+        
         for(String person : facebookNer.keySet()){
+            System.out.println("Ner map size"+nerMap.get(person).size()+"  "+person.toString());
             int commonNamesNumber = facebookNer.get(person); //in comune
-            result.put(person, Math.abs(nerMap.get(person).size()-commonNamesNumber)); //quelli totali su Fb - quelli in comune
+            result.put(person, nerMap.get(person).size()-commonNamesNumber); //quelli totali su Fb - quelli in comune
         }
         return result;
     }
