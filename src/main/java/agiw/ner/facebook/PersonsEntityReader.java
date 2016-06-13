@@ -49,12 +49,20 @@ public class PersonsEntityReader {
                             obj = parser.parse(new FileReader(f.getAbsolutePath()));
                             org.json.simple.JSONObject jsonObject = (JSONObject) obj;
                             org.json.simple.JSONObject nerObject = (JSONObject) jsonObject.get("NER");
-                            org.json.simple.JSONArray array = (org.json.simple.JSONArray) nerObject.get("PER");
+                            org.json.simple.JSONArray arrayPer = (org.json.simple.JSONArray) nerObject.get("PER");
 
-                            for (int i = 0 ; i < array.size(); i++) {
-                                String person = (String) array.get(i);
+                            for (int i = 0 ; i < arrayPer.size(); i++) {
+                                String person = (String) arrayPer.get(i);
                                 personsList.add(person.toLowerCase());
                             }
+                            
+                            org.json.simple.JSONObject regexObject = (JSONObject) jsonObject.get("PATTERN");
+                            org.json.simple.JSONArray arrayName = (org.json.simple.JSONArray) regexObject.get("name");
+                            for (int i = 0 ; i < arrayName.size(); i++) {
+                                String person = (String) arrayName.get(i);
+                                personsList.add(person.toLowerCase());
+                            }
+                            
                         }
                         catch (IOException e1) {
                             // TODO Auto-generated catch block
