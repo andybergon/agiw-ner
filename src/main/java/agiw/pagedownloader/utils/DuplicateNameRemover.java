@@ -38,7 +38,7 @@ public class DuplicateNameRemover {
 			String line;
 
 			while ((line = reader.readLine()) != null) {
-				addedToSet = lines.add(line);
+				addedToSet = lines.add(line.toLowerCase());
 				if (!addedToSet) {
 					System.out.println("Duplicate found: " + line);
 				}
@@ -75,7 +75,9 @@ public class DuplicateNameRemover {
 					String name_surname = name+" "+surname;
 					String surname_name = surname+" "+name;
 					if(linesList.contains(name_surname.toLowerCase())||linesList.contains(surname_name.toLowerCase())){
-						linesList.remove(name_surname);
+						linesList.remove(name_surname.toLowerCase());
+						linesList.remove(surname_name.toLowerCase());
+						System.out.println(linesList.size());
 						System.out.println("rimuovo: "+name_surname);
 					}
 					if (child.length() == 0) {
@@ -87,7 +89,7 @@ public class DuplicateNameRemover {
 				System.err.println("Storage Path not setted properly, it should be a directory!");
 			}
 			
-			
+			System.out.println(linesList.size());
 			BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
 
 			for (String unique : linesList) {
