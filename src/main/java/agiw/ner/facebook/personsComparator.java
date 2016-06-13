@@ -33,6 +33,11 @@ public class personsComparator {
                     if(facebookMap.get(person).contains(personEntity)){
                         count++;
                     }
+                String personInverted = person.split(personEntity)[1]+person.split(personEntity)[0];
+                if(facebookMap.get(person)!=null)
+                    if(facebookMap.get(person).contains(personInverted)){
+                        count++;
+                    }
             }
             result.put(person, count);
         }
