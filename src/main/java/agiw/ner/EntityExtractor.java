@@ -71,7 +71,7 @@ public class EntityExtractor {
 
 							AlchemyAPIExtractor aae = new AlchemyAPIExtractor();
 							List<NamedEntity> entities = new ArrayList<NamedEntity>();
-							// entities = aae.getEntitiesFromUrl(url);
+							entities = aae.getEntitiesFromUrl(url);
 							NER ner = new NER(entities);
 
 							// ner.print();
