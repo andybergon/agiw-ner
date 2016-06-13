@@ -53,6 +53,10 @@ public class PropertyFactor {
 	public String getAlchemyApiKey() {
 		return this.properties.get("alchemy-api-key");
 	}
+	
+	public String getJsonPathAmerica() {
+		return this.properties.get("json-path-america");
+	}
 
 	public String getJsonPath() {
 		return this.properties.get("json-path");

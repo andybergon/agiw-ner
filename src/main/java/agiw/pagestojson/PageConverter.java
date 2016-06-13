@@ -30,7 +30,7 @@ public class PageConverter {
 	public void convertPagesToJson() {
 		PropertyFactor pf = new PropertyFactor();
 		String storagePath = pf.getStoragePath();
-		String jsonPath = pf.getJsonPath();
+		String jsonPath = pf.getJsonPathAmerica();
 		
 		File dir = new File(storagePath);
 		File[] directoryListing = dir.listFiles();
