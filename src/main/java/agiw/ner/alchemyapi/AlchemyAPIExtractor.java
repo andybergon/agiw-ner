@@ -112,7 +112,6 @@ public class AlchemyAPIExtractor {
 	}
 
 	public List<NamedEntity> getEntitiesFromText(String body) {
-		final AbstractCall<NamedEntityAlchemyEntity> entityCall = new RankedNamedEntitiesCall(new CallTypeText(body));
 		List<NamedEntity> entities = new ArrayList<NamedEntity>();
 
 		try {
@@ -121,6 +120,9 @@ public class AlchemyAPIExtractor {
 			NamedEntity namedEntity;
 			String entityName;
 			String entityType;
+
+			final AbstractCall<NamedEntityAlchemyEntity> entityCall = new RankedNamedEntitiesCall(
+					new CallTypeText(body));
 
 			response = this.client.call(entityCall);
 
@@ -132,14 +134,26 @@ public class AlchemyAPIExtractor {
 				entityName = alchemyEntity.getText();
 				entityType = alchemyEntity.getType(); // main entity type
 				namedEntity = new NamedEntity(entityName, entityType);
+
 				entities.add(namedEntity);
 			}
 
 		} catch (IOException e) {
 			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			System.err.println("Body cannot be null or less than 1 character. Setting null NER from Alchemy!");
+			
+			if (body == null) {
+				System.err.println("Body NULL!");
+			} else {
+				System.err.println("Body: " + body);
+			}
+
+			e.printStackTrace();
 		}
 
 		return entities;
+
 	}
 
 }
