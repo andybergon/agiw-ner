@@ -13,7 +13,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import agiw.ner.alchemyapi.AlchemyAPIExtractor;
-import agiw.ner.alchemyapi.AlchemyException;
+import agiw.ner.alchemyapi.exception.AlchemyException;
 import agiw.ner.json.IEJsonWriter;
 import agiw.ner.objects.NER;
 import agiw.ner.objects.NamedEntity;
@@ -26,12 +26,14 @@ import utils.PropertyFactor;
 public class EntityExtractor {
 	public static void main(String[] args) {
 		PropertyFactor pf = new PropertyFactor();
+		String inputPath = pf.getJsonPath();
+		String outputPath = pf.getNerPath();
 
-		File jsonDir = new File(pf.getJsonPath());
+		File jsonDir = new File(inputPath);
 		File[] directories = jsonDir.listFiles();
 		Arrays.sort(directories);
 
-		File outputDir = new File(pf.getNerPath());
+		File outputDir = new File(outputPath);
 
 		if (!outputDir.exists()) {
 			outputDir.mkdir();
@@ -39,8 +41,9 @@ public class EntityExtractor {
 
 		if (directories != null) {
 			for (File personDirectory : directories) {
-
+				
 				File outputPersonDir = new File(outputDir, personDirectory.getName());
+				
 				if (!outputPersonDir.exists()) {
 					outputPersonDir.mkdir();
 				}
@@ -51,39 +54,40 @@ public class EntityExtractor {
 					int i = 1;
 					Arrays.sort(personFiles);
 
-					for (File personFile : personFiles) {
+					for (File personJsonFile : personFiles) {
 
 						JSONParser parser = new JSONParser();
 						Object obj;
 
 						try {
-							obj = parser.parse(new FileReader(personFile.getAbsolutePath()));
+							obj = parser.parse(new FileReader(personJsonFile.getAbsolutePath()));
 							org.json.simple.JSONObject jsonObject = (JSONObject) obj;
 							String body = (String) jsonObject.get("html");
 							String url = (String) jsonObject.get("url");
 
-							System.out.println("old file: " + personFile.getAbsolutePath());
+							System.out.println("json file: " + personJsonFile.getAbsolutePath());
 							System.out.println("url: " + url);
 
-							File json = new File(outputPersonDir, String.valueOf(i) + ".json");
-							json.createNewFile();
+							File nerJsonFile = new File(outputPersonDir, String.valueOf(i) + ".json");
+							nerJsonFile.createNewFile();
+							
+							System.out.println("ner file:" + nerJsonFile.getAbsolutePath());
 
-							System.out.println("new file:" + json.getAbsolutePath());
+							JsoupCleaner hc = new JsoupCleaner();
+							body = hc.cleanHtml(body);
 
 							AlchemyAPIExtractor aae = new AlchemyAPIExtractor();
 							List<NamedEntity> entities = new ArrayList<NamedEntity>();
 							try {
 								entities = aae.getEntitiesFromUrl(url);
 							} catch (AlchemyException e) {
+								// e.printStackTrace();
+								System.err.println("No good URL, using Alchemy on saved page!");
 								entities = aae.getEntitiesFromText(body);
-								e.printStackTrace();
 							}
 							NER ner = new NER(entities);
 
 							// ner.print();
-
-							JsoupCleaner hc = new JsoupCleaner();
-							body = hc.cleanHtml(body);
 
 							RegexPattern pattern = new RegexPattern();
 							RegexFinder rf = new RegexFinder();
@@ -105,19 +109,16 @@ public class EntityExtractor {
 							pattern.setNames(names);
 
 							IEJsonWriter jw = new IEJsonWriter();
-							jw.writeJson(json.getAbsolutePath(), url, ner, pattern);
+							jw.writeJson(nerJsonFile.getAbsolutePath(), url, ner, pattern);
 
 							System.out.println();
 							i++;
 
 						} catch (FileNotFoundException e1) {
-							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						} catch (IOException e1) {
-							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						} catch (ParseException e1) {
-							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
 
@@ -126,8 +127,7 @@ public class EntityExtractor {
 
 			}
 		} else {
-			System.out.println("Storage Path not setted properly, it should be a directory!");
+			System.out.println("Json Path not setted properly!");
 		}
-
 	}
 }

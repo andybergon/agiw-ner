@@ -15,6 +15,7 @@ import com.likethecolor.alchemy.api.call.type.CallTypeUrl;
 import com.likethecolor.alchemy.api.entity.NamedEntityAlchemyEntity;
 import com.likethecolor.alchemy.api.entity.Response;
 
+import agiw.ner.alchemyapi.exception.AlchemyException;
 import agiw.ner.objects.NamedEntity;
 import utils.PropertyFactor;
 
@@ -70,7 +71,6 @@ public class AlchemyAPIExtractor {
 			}
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -93,9 +93,6 @@ public class AlchemyAPIExtractor {
 			while (iter.hasNext()) {
 				alchemyEntity = iter.next();
 
-				//				System.out.println("Text: " + alchemyEntity.getText());
-				//				System.out.println("Type: " + alchemyEntity.getType());
-				//				System.out.println("Score: " + alchemyEntity.getScore());
 				//				DisambiguatedAlchemyEntity disambiguatedEntity = alchemyEntity.getDisambiguatedAlchemyEntity(); //TODO: check
 				//				disambiguatedEntity.getSubtypeSize(); // serve al for per iterare
 
@@ -106,7 +103,8 @@ public class AlchemyAPIExtractor {
 			}
 
 		} catch (IOException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+			System.err.println("Cannot call AlchemyAPI on this URL.");
 			throw new AlchemyException();
 		}
 
@@ -130,7 +128,7 @@ public class AlchemyAPIExtractor {
 
 			while (iter.hasNext()) {
 				alchemyEntity = iter.next();
-				
+
 				entityName = alchemyEntity.getText();
 				entityType = alchemyEntity.getType(); // main entity type
 				namedEntity = new NamedEntity(entityName, entityType);

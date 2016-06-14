@@ -113,7 +113,7 @@ public class NameFinder {
 						for (String consequent : l2) {
 							if (nextWord.equals(consequent)) {
 								foundNamesSurnames.add(antecedent + " " + consequent);
-								System.out.println(antecedent + " " + consequent);
+								// System.out.println(antecedent + " " + consequent);
 								nextWord = "";
 							}
 						}
