@@ -74,7 +74,12 @@ public class EntityExtractor {
 							System.out.println("ner file:" + nerJsonFile.getAbsolutePath());
 
 							JsoupCleaner hc = new JsoupCleaner();
-							body = hc.cleanHtml(body);
+							
+							try {
+								body = hc.cleanHtml(body);
+							} catch (Exception e) {
+								System.err.println("Jsoup Error, Body not cleaned. Passing dirty body to Alchemy.");
+							}
 
 							AlchemyAPIExtractor aae = new AlchemyAPIExtractor();
 							List<NamedEntity> entities = new ArrayList<NamedEntity>();
