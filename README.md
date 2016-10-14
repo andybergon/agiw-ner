@@ -1,4 +1,5 @@
 # agiw-ner
+Andrea Bergonzo & Luca Massuda (https://github.com/Massuda) Chiara Lombardi Simone Laudato
 ## PageDownloader.java
 Needs:
 *bingKey*
